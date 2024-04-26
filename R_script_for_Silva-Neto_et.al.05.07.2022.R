@@ -1009,7 +1009,7 @@ Figure2<-grafico1 %>% mutate(Var2 = factor(Var2,
   theme_classic(base_size=12) +
   labs(x = "Year")+
   labs(y = "Number of cases")+
-  labs(fill = "Type of Accident")+
+  labs(fill = "Snake genus")+
   theme(legend.text.align = 0)
 
 
