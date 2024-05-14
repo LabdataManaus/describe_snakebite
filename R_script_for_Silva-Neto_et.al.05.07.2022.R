@@ -762,17 +762,17 @@ SINAN_2007_2020$TP_ACIDENT.factor<- factor(SINAN_2007_2020$TP_ACIDENT,
                                            levels = c(1,2,3,4,5,6,9), 
                                            labels = c("Serpent", "Spider", "Scorpion", "Cerpillar", "Bee", "Other", "Ignored"))
 
-#Value Labels Snake -  Snake genus
+#Value Labels Snake - Type of accident
 SINAN_2007_2020$ANI_SERPEN.factor<- factor(SINAN_2007_2020$ANI_SERPEN,
                                              levels = c(1,2,3,4,5,9), 
                                              labels = c("Bothrops", "Crotalus", "Micrurus", "Lachesis", "Non-venomous snakes", "Ignored" ))
 
-#Value Labels Spider -  Snake genus
+#Value Labels Spider - Type of accident
 SINAN_2007_2020$ANI_ARANHA.factor<- factor(SINAN_2007_2020$ANI_ARANHA,
                                            levels = c(1,2,3,4,9), 
                                            labels = c( "Foneutrismo", "Loxoscelismo", "Latrodectismo", "Outra Aranha", "Ignorado"))
 
-#Value Labels Caterpillar -  Snake genus
+#Value Labels Caterpillar - Type of accident
 SINAN_2007_2020$ANI_LAGART.factor<- factor(SINAN_2007_2020$ANI_LAGART,
                                            levels = c(1,2,9), 
                                            labels = c("Lonomia", "Outra lagarta", "Ignorado"))
@@ -904,9 +904,9 @@ label(SINAN_2007_2020$CLI_OUTR_3)="Other systemic (specify)"
 label(SINAN_2007_2020$CLI_TEMPO_)="Clotting time"
 label(SINAN_2007_2020$TP_ACIDENT)="Accident Type"
 label(SINAN_2007_2020$ANI_TIPO_1)="In case of Others specify"
-label(SINAN_2007_2020$ANI_SERPEN)="Snake -  Snake genus"
-label(SINAN_2007_2020$ANI_ARANHA)="Spider -  Snake genus"
-label(SINAN_2007_2020$ANI_LAGART)="Caterpillar -  Snake genus"
+label(SINAN_2007_2020$ANI_SERPEN)="Snake - Type of accident"
+label(SINAN_2007_2020$ANI_ARANHA)="Spider - Type of accident"
+label(SINAN_2007_2020$ANI_LAGART)="Caterpillar - Type of accident"
 label(SINAN_2007_2020$TRA_CLASSI)="Case Classification"
 label(SINAN_2007_2020$CON_SOROTE)="Serum therapy"
 label(SINAN_2007_2020$NU_AMPOLAS)="Antibrotopic (SAB)"
@@ -957,9 +957,9 @@ label(SINAN_2007_2020$CLI_RENAL.factor)="kidney (oliguria/anuria)"
 label(SINAN_2007_2020$CLI_OUTR_2.factor)="Other systemic"
 label(SINAN_2007_2020$CLI_TEMPO_.factor)="Clotting time"
 label(SINAN_2007_2020$TP_ACIDENT.factor)="Accident Type"
-label(SINAN_2007_2020$ANI_SERPEN.factor)="Snake -  Snake genus"
-label(SINAN_2007_2020$ANI_ARANHA.factor)="Spider -  Snake genus"
-label(SINAN_2007_2020$ANI_LAGART.factor)="Caterpillar -  Snake genus"
+label(SINAN_2007_2020$ANI_SERPEN.factor)="Snake - Type of accident"
+label(SINAN_2007_2020$ANI_ARANHA.factor)="Spider - Type of accident"
+label(SINAN_2007_2020$ANI_LAGART.factor)="Caterpillar - Type of accident"
 label(SINAN_2007_2020$TRA_CLASSI.factor)="Case Classification"
 label(SINAN_2007_2020$CON_SOROTE.factor)="Serum therapy"
 label(SINAN_2007_2020$COM_LOC.factor)="Local complications"
@@ -997,7 +997,7 @@ Figure2<-grafico1 %>% mutate(Var2 = factor(Var2,
   # scale_fill_discrete(guide = guide_legend(label.theme = element_text())) +
   scale_fill_brewer(palette="YlOrRd", direction=-1,guide = guide_legend(label.theme = element_text(face= "italic")))+
   # scale_fill_brewer(palette="YlOrRd")+
-  # scale_fill_discrete(" Snake genus",
+  # scale_fill_discrete("Type of Accident",
   #                     breaks = c("Micrurus", "Lachesis", "Non-venomous snakes", "Crotalus",
   #                                "Ignored", "Bothrops"),
   #   labels = c(expression(italic("Micrurus")), 
@@ -1010,10 +1010,11 @@ Figure2<-grafico1 %>% mutate(Var2 = factor(Var2,
   labs(x = "Year")+
   labs(y = "Number of cases")+
   labs(fill = "Snake genus")+
-  theme(legend.text.align = 0)
+  theme(legend.text.align = 0)+
+  scale_y_continuous(labels = scales::comma)
 
 
-ggsave("Figure2.tiff",Figure2, units="in", width=12, height=6, dpi=300, compression = 'lzw')
+ggsave("Figure1.tiff",Figure2, units="in", width=12, height=6, dpi=300, compression = 'lzw')
 
 ##################################################################################
 #categorizing age
@@ -1044,7 +1045,8 @@ graph1 <-grafico2 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Micrurus)")))+
-  labs(fill = "")
+  labs(fill = "")+
+scale_y_continuous(labels = scales::comma)
 graph1
 
 #chart by age category (Lachesis)
@@ -1061,7 +1063,8 @@ graph2 <-grafico3 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Lachesis)")))+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph2
 
 #chart by age category (Non-venomus Snake)
@@ -1076,7 +1079,8 @@ graph3 <-grafico4 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = "N cases (Non-venomus Snake)")+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph3
 
 #chart by age category (Crotalus)
@@ -1090,7 +1094,8 @@ graph4 <-grafico5 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Crotalus)")))+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph4
 
 #chart by age category (Ignored)
@@ -1104,7 +1109,8 @@ graph5 <-grafico6 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = "N cases (Ignored)")+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph5
 
 #chart by age category (Bothops)
@@ -1118,13 +1124,14 @@ graph6 <-grafico7 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Bothrops)")))+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph6
 
 require(gridExtra)
 Figure3<-grid.arrange(graph1, graph2, graph3, graph4, graph5, graph6, ncol=2)
 
-ggsave("Figure3.tiff",Figure3, units="in", width=12, height=6, dpi=300, compression = 'lzw')
+ggsave("Figure2.tiff",Figure3, units="in", width=12, height=6, dpi=300, compression = 'lzw')
 
 
 ###############################################################################
@@ -1142,7 +1149,8 @@ graph1 <-grafico2 %>%
   theme(axis.title.y = element_text(face="italic"))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Micrurus)")))+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph1
 
 #chart by age category (Lachesis)
@@ -1157,7 +1165,8 @@ graph2 <-grafico3 %>%
   theme(axis.title.y = element_text(face="italic"))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Lachesis)")))+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph2
 
 #chart by age category (Non-venomus Snake)
@@ -1172,7 +1181,8 @@ graph3 <-grafico4 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = "N cases (Non-venomus Snake)")+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph3
 
 #chart by age category (Crotalus)
@@ -1187,7 +1197,8 @@ graph4 <-grafico5 %>%
   theme(axis.title.y = element_text(face="italic"))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Crotalus)")))+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph4
 
 #chart by age category (Ignored)
@@ -1201,7 +1212,8 @@ graph5 <-grafico6 %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = "Year")+
   labs(y = "N cases (Ignored)")+
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph5
 
 #chart by age category (Bothops)
@@ -1216,12 +1228,13 @@ graph6 <-grafico7 %>%
   theme(axis.title.y = element_text(face="italic"))+
   labs(x = "Year")+
   labs(y = expression("N cases"~italic("(Bothrops)")))+ 
-  labs(fill = "")
+  labs(fill = "")+
+  scale_y_continuous(labels = scales::comma)
 graph6
 
 require(gridExtra)
 Figure5<-grid.arrange(graph1, graph2, graph3, graph4, graph5, graph6, ncol=2)
-ggsave("Figure5.tiff",Figure5, units="in", width=12, height=6, dpi=300, compression = 'lzw')
+ggsave("Figure4.tiff",Figure5, units="in", width=12, height=6, dpi=300, compression = 'lzw')
 ######################################################################################################
 #graphic obitos chart by year
 #install.packages("ggplot2")
@@ -1241,8 +1254,9 @@ Figure6<-grafico1 %>% mutate(Var2 = factor(Var2,
   theme_classic(base_size=12) +
   labs(x = "Year")+
   labs(y = "Number of deaths")+
-  labs(fill = " Snake genus")
-ggsave("Figure6.tiff",Figure6, units="in", width=12, height=6, dpi=300, compression = 'lzw')
+  labs(fill = "Snake genus")+
+  scale_y_continuous(labels = scales::comma)
+ggsave("Figure5.tiff",Figure6, units="in", width=12, height=6, dpi=300, compression = 'lzw')
 #################################################################
 
 
@@ -1702,21 +1716,21 @@ SINAN_2007_2020_statisitic$TP_ACIDENT.factor<- factor(SINAN_2007_2020_statisitic
                                            labels = c("Serpent", "Spider", "Scorpion",
                                                       "Cerpillar", "Bee", "Other"))
 
-#Value Labels Snake -  Snake genus
+#Value Labels Snake - Type of accident
 SINAN_2007_2020_statisitic$ANI_SERPEN.factor<- as.numeric(as.character(SINAN_2007_2020_statisitic$ANI_SERPEN.factor))
 SINAN_2007_2020_statisitic$ANI_SERPEN.factor<- factor(SINAN_2007_2020_statisitic$ANI_SERPEN,
                                            levels = c(1,2,3,4,5,9), 
                                            labels = c("Bothropic", "Crotalic", "Elapidic",
                                                       "Laquetic", "Non-Venomous Serpent", "ignored" ))
 
-#Value Labels Spider -  Snake genus
+#Value Labels Spider - Type of accident
 SINAN_2007_2020_statisitic$ANI_ARANHA.factor<-as.numeric(as.character(SINAN_2007_2020_statisitic$ANI_ARANHA.factor))
 SINAN_2007_2020_statisitic$ANI_ARANHA.factor<- factor(SINAN_2007_2020_statisitic$ANI_ARANHA,
                                            levels = c(1,2,3,4,9), 
                                            labels = c( "Foneutrismo", "Loxoscelismo", "Latrodectismo",
                                                        "Outra Aranha", "ignored"))
 
-#Value Labels Caterpillar -  Snake genus
+#Value Labels Caterpillar - Type of accident
 SINAN_2007_2020_statisitic$ANI_LAGART.factor<-as.numeric(as.character(SINAN_2007_2020_statisitic$ANI_LAGART.factor))
 SINAN_2007_2020_statisitic$ANI_LAGART.factor<- factor(SINAN_2007_2020_statisitic$ANI_LAGART,
                                            levels = c(1,2,9), 
@@ -1893,9 +1907,9 @@ label(SINAN_2007_2020_statisitic$CLI_OUTR_3)="Other systemic (specify)"
 label(SINAN_2007_2020_statisitic$CLI_TEMPO_)="Clotting time"
 label(SINAN_2007_2020_statisitic$TP_ACIDENT)="Accident Type"
 label(SINAN_2007_2020_statisitic$ANI_TIPO_1)="In case of Others specify"
-label(SINAN_2007_2020_statisitic$ANI_SERPEN)="Snake -  Snake genus"
-label(SINAN_2007_2020_statisitic$ANI_ARANHA)="Spider -  Snake genus"
-label(SINAN_2007_2020_statisitic$ANI_LAGART)="Caterpillar -  Snake genus"
+label(SINAN_2007_2020_statisitic$ANI_SERPEN)="Snake - Type of accident"
+label(SINAN_2007_2020_statisitic$ANI_ARANHA)="Spider - Type of accident"
+label(SINAN_2007_2020_statisitic$ANI_LAGART)="Caterpillar - Type of accident"
 label(SINAN_2007_2020_statisitic$TRA_CLASSI)="Case Classification"
 label(SINAN_2007_2020_statisitic$CON_SOROTE)="Serum therapy"
 label(SINAN_2007_2020_statisitic$NU_AMPOLAS)="Antibrotopic (SAB)"
@@ -1949,9 +1963,9 @@ label(SINAN_2007_2020_statisitic$CLI_RENAL.factor)="kidney (oliguria/anuria)"
 label(SINAN_2007_2020_statisitic$CLI_OUTR_2.factor)="Other systemic"
 label(SINAN_2007_2020_statisitic$CLI_TEMPO_.factor)="Clotting time"
 label(SINAN_2007_2020_statisitic$TP_ACIDENT.factor)="Accident Type"
-label(SINAN_2007_2020_statisitic$ANI_SERPEN.factor)="Snake -  Snake genus"
-label(SINAN_2007_2020_statisitic$ANI_ARANHA.factor)="Spider -  Snake genus"
-label(SINAN_2007_2020_statisitic$ANI_LAGART.factor)="Caterpillar -  Snake genus"
+label(SINAN_2007_2020_statisitic$ANI_SERPEN.factor)="Snake - Type of accident"
+label(SINAN_2007_2020_statisitic$ANI_ARANHA.factor)="Spider - Type of accident"
+label(SINAN_2007_2020_statisitic$ANI_LAGART.factor)="Caterpillar - Type of accident"
 label(SINAN_2007_2020_statisitic$TRA_CLASSI.factor)="Case Classification"
 label(SINAN_2007_2020_statisitic$CON_SOROTE.factor)="Serum therapy"
 label(SINAN_2007_2020_statisitic$COM_LOC.factor)="Local complications"
@@ -2172,6 +2186,8 @@ tbl_merge_ea <-gtsummary::tbl_merge(
 )
 
 tbl_merge_ea
+
+
 
 
 
